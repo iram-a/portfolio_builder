@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Portfolio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container preview">
+        {% if data.image %}
+            <img src="{{ url_for('static', filename='uploads/' ~ data.image) }}" alt="Profile Image" class="profile-img">
+        {% endif %}
+        <h2>{{ data.name }}</h2>
+        <p>{{ data.bio }}</p>
+
+        <h3>Skills</h3>
+        <ul>
+            {% for skill in data.skills %}
+                <li>{{ skill.strip() }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Projects</h3>
+        <div class="projects-container">
+            {% for project in data.projects %}
+                <div class="project-card">
+                    {% if project.image %}
+                        <img src="{{ url_for('static', filename='uploads/' ~ project.image) }}" alt="{{ project.name }}" class="project-img">
+                    {% endif %}
+                    <h4><a href="{{ project.link }}" target="_blank" rel="noopener noreferrer">{{ project.name }}</a></h4>
+                </div>
+            {% endfor %}
+        </div>
+
+        <p>Email: {{ data.email }}</p>
+
+        {% if data.resume %}
+            <a href="{{ url_for('download_resume', filename=data.resume) }}" class="btn" download>📄 Download Resume</a>
+        {% endif %}
+    </div>
+</body>
+</html>

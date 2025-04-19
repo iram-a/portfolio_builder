@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Portfolio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Portfolio Builder</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <textarea name="bio" placeholder="Short Bio" required></textarea>
+            <input type="text" name="skills" placeholder="Skills (comma-separated)" required>
+            <input type="text" name="projects" placeholder="Projects (comma-separated)" required>
+            <input type="email" name="email" placeholder="Email" required>
+
+            <label>Upload Profile Picture</label>
+            <input type="file" name="profile" accept="image/*">
+
+            <label>Upload Resume (PDF)</label>
+            <input type="file" name="resume" accept="application/pdf">
+
+            <button type="submit">Build Portfolio</button>
+        </form>
+    </div>
+</body>
+</html>
