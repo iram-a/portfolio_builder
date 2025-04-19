@@ -4,14 +4,26 @@
     <meta charset="UTF-8">
     <title>Your Portfolio</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
 </head>
 <body>
-    <div class="container preview">
-        {% if data.image %}
-            <img src="{{ url_for('static', filename='uploads/' ~ data.image) }}" alt="Profile Image" class="profile-img">
-        {% endif %}
-        <h2>{{ data.name }}</h2>
-        <p>{{ data.bio }}</p>
+    <div class="wrapper">
+        <nav class="navbar">
+            <div class="container">
+                <h1 class="navbar-brand">{{ data.name }}'s Portfolio</h1>
+                <ul class="navbar-menu">
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container preview">
+            {% if data.image %}
+                <img src="{{ url_for('static', filename='uploads/' ~ data.image) }}" alt="Profile Image" class="profile-img">
+            {% endif %}
+            <h2>{{ data.name }}</h2>
+            <p>{{ data.bio }}</p>
 
         <h3>Skills</h3>
         <ul>
@@ -38,5 +50,10 @@
             <a href="{{ url_for('download_resume', filename=data.resume) }}" class="btn" download>📄 Download Resume</a>
         {% endif %}
     </div>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; {{ data.name }}'s Portfolio - All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

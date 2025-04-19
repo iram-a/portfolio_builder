@@ -12,7 +12,18 @@
             <input type="text" name="name" placeholder="Your Name" required>
             <textarea name="bio" placeholder="Short Bio" required></textarea>
             <input type="text" name="skills" placeholder="Skills (comma-separated)" required>
-            <input type="text" name="projects" placeholder="Projects (comma-separated)" required>
+
+            <div id="projects-container">
+                <label>Projects</label>
+                <div class="project-entry">
+                    <input type="text" name="project_names[]" placeholder="Project Name" required>
+                    <input type="url" name="project_links[]" placeholder="Project Link (URL)" required>
+                    <input type="file" name="project_images[]" accept="image/*">
+                    <button type="button" class="remove-project-btn">Remove</button>
+                </div>
+            </div>
+            <button type="button" id="add-project-btn">Add Project</button>
+
             <input type="email" name="email" placeholder="Email" required>
 
             <label>Upload Profile Picture</label>
@@ -23,6 +34,32 @@
 
             <button type="submit">Build Portfolio</button>
         </form>
+
+        <script>
+            document.getElementById('add-project-btn').addEventListener('click', function() {
+                const container = document.getElementById('projects-container');
+                const newEntry = document.createElement('div');
+                newEntry.classList.add('project-entry');
+                newEntry.innerHTML = `
+                    <input type="text" name="project_names[]" placeholder="Project Name" required>
+                    <input type="url" name="project_links[]" placeholder="Project Link (URL)" required>
+                    <input type="file" name="project_images[]" accept="image/*">
+                    <button type="button" class="remove-project-btn">Remove</button>
+                `;
+                container.appendChild(newEntry);
+
+                newEntry.querySelector('.remove-project-btn').addEventListener('click', function() {
+                    container.removeChild(newEntry);
+                });
+            });
+
+            document.querySelectorAll('.remove-project-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const entry = this.parentElement;
+                    entry.parentElement.removeChild(entry);
+                });
+            });
+        </script>
     </div>
 </body>
 </html>
