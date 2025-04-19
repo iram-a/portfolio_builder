@@ -28,10 +28,13 @@ app.config['UPLOAD_FOLDER_RESUMES'] = UPLOAD_FOLDER_RESUMES
 
 import logging
 
+import logging
+
 mongo_uri = os.environ.get("MONGODB_URI")
 if not mongo_uri:
-    logging.error("MONGODB_URI environment variable is not set.")
-    raise ValueError("MONGODB_URI environment variable is required but not set.")
+    # Fallback for local development only
+    mongo_uri = "mongodb+srv://iram15:UNnr3JpQnPp9NeeX@cluster0.ten3jrd.mongodb.net/"
+    logging.warning("MONGODB_URI environment variable is not set. Using fallback URI for local development.")
 
 try:
     client = MongoClient(mongo_uri)
@@ -107,4 +110,6 @@ def download_resume(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER_RESUMES'], filename)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
